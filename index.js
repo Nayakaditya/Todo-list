@@ -1,34 +1,63 @@
 require('dotenv').config();
 const express = require('express');
-const path = require('path');
 const port = process.env.PORT;
 const db = require('./config/mongoose');
 const Tasks = require('./models/task_schema');
 
 const app = express();
 
-app.use(express.static('assets'));
+// to set up the view engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.urlencoded());
+app.set('views', './views');
 
-app.get('/', (req, res)=>{
-    res.render('home',{
-        title : "Ejs home page"
+app.use(express.urlencoded());
+app.use(express.static('./assets'));
+
+// const tasks_list = [
+//     {
+//         title : "First Todo app",
+//         category : "Sports",
+//         duedate : '2022-12-13'
+//     }
+// ]
+
+app.get('/', (req, res) => {
+    Tasks.find({}, (err, tasks) => {
+        if (err) {
+            console.log("Error in fething tasks from the database");
+            return;
+        }
+        console.log('task', tasks);
+        res.render('home', {
+            title: "Todo_list App",
+            tasks_list: tasks
+        })
+    });
+    console.log(Tasks.find().model());
+});
+
+app.post('/create-task', (req, res)=> {
+    Tasks.create({
+        tasks: req.body.tasks,
+        category: req.body.category,
+        duedate: req.body.duedate
+    }, function (err, newTask) {
+        if (err) {
+            res.send("Error in creating a task");;
+            return;
+        }
+
+        console.log("New task ", newTask);
+        return res.redirect('back');
     });
 });
 
-app.post('/create-task', (req, res)=>{
-    res.send(req.body);
+app.post('/delete-task', (req, res) => {
     return res.redirect('/');
 });
 
-// app.post('/delete-task', (req, res)=>{
-//     return res.redirect('/');
-// });
-
-app.listen(port, (err)=>{
-    if(err){
+app.listen(port, (err) => {
+    if (err) {
         console.log("Server connection error");
     }
 

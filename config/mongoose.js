@@ -3,11 +3,7 @@ const mongoose = require('mongoose');
 
 // To connect with your database
 const database_name = process.env.DATABASE_NAME;
-mongoose.connect(`mongodb://127.0.0.1:27017/${database_name}`,
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+mongoose.connect(`mongodb://127.0.0.1:27017/${database_name}`);
 
 // Now let's Check if MongoDB connects with Node.js or not
 const db = mongoose.connection;

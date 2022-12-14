@@ -1,24 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo list app</title>
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-    <div>
-        <h1>
-            <%= title %>
-        </h1>
-    </div>
+    <section class="main-section d-grid">
+        <main class="w460">
+            <div class="display-todo">
+                <div class="todo-heading-text d-grid">
+                    <h1>TODO App</h1>
+                </div>
+                <hr>
+                <div>
+                    <form action="/create-task" method="post">
+                        <div class="description">
+                            <label for="tasks" class="label label-desc">DESCRIPTION *</label>
+                            <input type="text" name="tasks" placeholder="What to you need to do?" required>
+                        </div>
+                        <hr>
+                        <div class="cat-date">
+                            <div>
+                                <label for="category" class="label label-cat">CATEGORY *</label>
+                                <select name="category" required>
+                                    <option value="">Choose a category</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Music">Music</option>
+                                    <option value="Video Games">Video Games</option>
+                                    <option value="Study">Study</option>
+                                    <option value="Cycling">Cycling</option>
+                                    <option value="Travelling">Travelling</option>
+                                    <option value="Cooking">Cooking</option>
+                                    <option value="Running">Running</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="duedate" class="label label-date">DUE DATE *</label>
+                                <input type="date" name="duedate" min="2001-06-25" max="2080-06-25" required>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="btn-hold">
+                            <button type="submit" class="add-btn">ADD TASK</button>
+                            <button class="del-btn">DELETE TASK</button>
+                        </div>
+                        <hr>
+                    </form>
+                </div>
+            </div>
+        </main>
 
-    <div>
-        <form action="/create-task" method="post">
-            <input type="text" name="task" placeholder="Tasks to be added" required >
-            <input type="submit" value="Add task">
-
-        </form>
-    </div>
+        <div class="display-list">
+            <ul>
+                <% for(let i of tasks_list) { %>
+                    <li class="w460 each-list">
+                        <hr>
+                        <p>
+                            <%= i.tasks %>
+                        </p>
+                        <span>
+                            <i class="fa-solid fa-calendar-days">
+                                <%= i.duedate %>
+                            </i>
+                        </span>
+                        <span>
+                            <%= i.category %>
+                        </span>
+                        <hr>
+                    </li>
+                    <% } %>
+            </ul>
+        </div>
+    </section>
+    <script src="https://kit.fontawesome.com/4bfb5306a3.js" crossorigin="anonymous"></script>
 </body>
+
 </html>
