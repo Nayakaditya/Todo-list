@@ -13,6 +13,9 @@
 
 <body>
     <section class="main-section d-grid">
+        <form action="/search-task" method="get">
+            <input type="search" name="search_task" placeholder="Search your task...">
+        </form>
         <main class="w460">
             <div class="display-todo">
                 <div class="todo-heading-text d-grid">
@@ -39,6 +42,9 @@
                                     <option value="Travelling">Travelling</option>
                                     <option value="Cooking">Cooking</option>
                                     <option value="Running">Running</option>
+                                    <option value="Action">Action</option>
+                                    <option value="Fight">Fight</option>
+                                    <option value="">Other</option>
                                 </select>
                             </div>
                             <div>
@@ -49,9 +55,12 @@
                         <hr>
                         <div class="btn-hold">
                             <button type="submit" class="add-btn">ADD TASK</button>
-                            <button class="del-btn">DELETE TASK</button>
                         </div>
-                        <hr>
+                    </form>
+                    <form action="/delete-task" method="post">
+                        <div class="btn-hold">
+                            <button class="del-btn">DELETE ALL</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -62,7 +71,7 @@
                 <% for(let i of tasks_list) { %>
                     <li class="w460 each-list">
                         <hr>
-                        <p>
+                        <p id="task-list-id">
                             <%= i.tasks %>
                         </p>
                         <span>
@@ -70,16 +79,25 @@
                                 <%= i.duedate %>
                             </i>
                         </span>
-                        <span>
+                        <span class="category">
                             <%= i.category %>
                         </span>
                         <hr>
                     </li>
+                    <span class="del-area">
+                        <a href="/del-task/?id=<%= i._id %>">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </span>
+                    <span>
+                        <input type="checkbox" name="completed" id="complete_task" >
+                    </span>
                     <% } %>
             </ul>
         </div>
     </section>
     <script src="https://kit.fontawesome.com/4bfb5306a3.js" crossorigin="anonymous"></script>
+    <script src="/js/script.js"></script>
 </body>
 
 </html>

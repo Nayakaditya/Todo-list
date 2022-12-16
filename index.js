@@ -13,29 +13,24 @@ app.set('views', './views');
 app.use(express.urlencoded());
 app.use(express.static('./assets'));
 
-// const tasks_list = [
-//     {
-//         title : "First Todo app",
-//         category : "Sports",
-//         duedate : '2022-12-13'
-//     }
-// ]
-
+// to show the task in home page
 app.get('/', (req, res) => {
     Tasks.find({}, (err, tasks) => {
         if (err) {
             console.log("Error in fething tasks from the database");
             return;
         }
-        console.log('task', tasks);
+        // console.log('task', tasks);
         res.render('home', {
             title: "Todo_list App",
-            tasks_list: tasks
+            tasks_list: tasks,
+            noDeadline : "NO DEADLINE"
         })
     });
-    console.log(Tasks.find().model());
+    // console.log(Tasks.find().model());
 });
 
+// to create a new task
 app.post('/create-task', (req, res)=> {
     Tasks.create({
         tasks: req.body.tasks,
@@ -52,8 +47,38 @@ app.post('/create-task', (req, res)=> {
     });
 });
 
+// to search any task a/c to their category
+app.get('/search-task', (req, res)=>{
+    Tasks.find({category : req.body.search_task}, (err, task)=>{
+        if(err){
+            console.log("Unable to find");
+            return;
+        }
+        res.send(task);
+    })
+});
+
+// to delete every tasks at once
 app.post('/delete-task', (req, res) => {
-    return res.redirect('/');
+    Tasks.deleteMany({}, (err, deleteTask)=>{
+        if(err){
+            console.log("Error in deleting task");
+            return;
+        }
+        return res.redirect('back'); 
+    });
+});
+
+// to delete each task individually
+app.get('/del-task/', (req, res)=>{
+    let id = req.query.id;
+    Tasks.findByIdAndDelete(id, (err)=>{
+        if(err){
+            return console.error("Error in deleting task from database");
+        }
+
+        return res.redirect('back');
+    });
 });
 
 app.listen(port, (err) => {

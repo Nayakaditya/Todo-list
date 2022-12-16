@@ -28,6 +28,20 @@ input[type="text"]{
     width: 100%;
 }
 
+input[type="search"]{
+    width: 460px;
+    min-width: 300px;
+    border-bottom: 3px solid grey;
+    font-size: 1.3em;
+    font-weight: 800;
+    border-radius: 5px;
+}
+
+input[type="search"]::placeholder{
+    padding-left: 10px;
+    color: #682ee6;
+}
+
 input{
     border: none;
     padding: 1rem 0;
@@ -69,59 +83,11 @@ button{
     color: white;
     cursor: pointer;
     border: none;
-    animation: animBtn 2s ease-in-out infinite alternate;
+    border-radius: 34% 3% 12% 99% / 58% 31% 80% 33%;
 }
 
 button:hover{
-    animation: none;
-    border-radius: 10px;
-}
-
-@keyframes animBtn{
-    0%{
-        border-radius: 85% 15% 90% 10% / 9% 85% 15% 91%  ;
-        box-shadow: 0px 0px 10px 1px black;
-    }
-    10%{
-        border-radius: 68% 32% 77% 23% / 25% 71% 29% 75% ;
-        box-shadow: 0px 0px 10px 1px rgb(254, 0, 0);
-    }
-    20%{
-        border-radius: 68% 32% 56% 44% / 40% 71% 29% 60% ;
-        box-shadow: 0px 0px 10px 1px rgb(255, 242, 0);
-    }
-    30%{
-        border-radius: 47% 53% 56% 44% / 40% 46% 54% 60% ;
-        box-shadow: 0px 0px 10px 1px rgb(43, 255, 0);
-    }
-    40%{
-        border-radius: 18% 82% 31% 69% / 70% 22% 78% 30% ;
-        box-shadow: 0px 0px 10px 1px rgb(0, 55, 255);
-    }
-    50%{
-        border-radius: 9% 91% 11% 89% / 95% 7% 93% 5% ;
-        box-shadow: 0px 0px 10px 1px rgb(255, 8, 247);
-    }
-    60%{
-        border-radius: 18% 82% 31% 69% / 70% 22% 78% 30% ;
-        box-shadow: 0px 0px 10px 1px rgb(255, 0, 76);
-    }
-    70%{
-        border-radius: 47% 53% 56% 44% / 40% 46% 54% 60% ;
-        box-shadow: 0px 0px 10px 1px rgb(255, 0, 0);
-    }
-    80%{
-        border-radius:68% 32% 56% 44% / 40% 71% 29% 60% ;
-        box-shadow: 0px 0px 10px 1px rgb(0, 247, 255);
-    }
-    90%{
-        border-radius: 68% 32% 77% 23% / 25% 71% 29% 75% ;
-        box-shadow: 0px 0px 10px 1px rgb(195, 255, 0);
-    }
-    100%{
-        border-radius: 85% 15% 90% 10% / 9% 85% 15% 91%  ;
-        box-shadow: 0px 0px 10px 1px black;
-    }
+    box-shadow: inset 0px 0px 10px 2px black;
 }
 
 .add-btn{
@@ -152,6 +118,42 @@ li{
     font-weight: 600;
 }
 
+li:hover{
+    cursor: pointer;
+    background-color: rgb(184, 184, 184);
+}
+
 li i{
     font-size: .7em;
+}
+
+li p{
+    margin-right: 10px;
+}
+
+.category{
+    border-radius: 5px;
+    color: white;
+    padding: .5rem .5rem;
+    background-color: rgb(255, 77, 0);
+    position: relative;
+    left:260px;
+    bottom: 20px;
+}
+
+.del-area{
+    position: relative;
+    right: 40px;
+    bottom: 60px;
+}
+
+.del-area a{
+    text-decoration: none;
+    color: red;
+}
+
+/* when task is completed then mark it */
+.task-completed{
+    opacity: .9;
+    text-decoration: line-through;
 }
